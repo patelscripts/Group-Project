@@ -5,7 +5,7 @@ function NewsCard({ title, content }) {
     const [showSummary, setShowSummary] = useState(false);
     const summary = content.split(" ").slice(0, 15).join(" ") + "...";
     return (
-        <div className="bg-white text-black shadow-lg rounded-lg p-4 flex flex-col aspect-[4/3] w-full ">
+        <div className="bg-black text-white shadow-lg rounded-lg p-4 flex flex-col aspect-[4/3] w-full outline-1 outline-white ">
             <h2 className="text-lg font-semibold mb-2">{title}</h2>
             <p className="text-gray-700">
                 {showFull ? content : showSummary ? summary : content.slice(0, 100) + "..."}

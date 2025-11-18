@@ -1,31 +1,26 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function NewsCard({ title, content }) {
-    const [showFull, setShowFull] = useState(false);
-    const [showSummary, setShowSummary] = useState(false);
-    const summary = content.split(" ").slice(0, 15).join(" ") + "...";
-    return (
-        <div className="bg-black text-white shadow-lg rounded-lg p-4 flex flex-col aspect-[4/3] w-full outline-1 outline-white ">
-            <h2 className="text-lg font-semibold mb-2">{title}</h2>
-            <p className="text-gray-700">
-                {showFull ? content : showSummary ? summary : content.slice(0, 100) + "..."}
-            </p>
-            <div className="flex gap-3 mt-auto">
-                <button
-                    className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-500"
-                    onClick={() => setShowFull(!showFull)}
-                >
-                    {showFull ? "Show Less" : "Read More"}
-                </button>
-                <button
-                    className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-500"
-                    onClick={() => setShowSummary(!showSummary)}
-                >
-                    {showSummary ? "Hide Summary" : "Summary"}
-                </button>
+function NewsCard({article}){
+    const{source,author,title,description,url,urlToImage,publishedAt} = article;
+    return(
+        <div className="max-w-md mx-auto bg-white dark:bg-gray-900 hover:scale-105 transition-all rounded-xl shadow-md overflow-hidden hover:shadow-lg duration-100">
+            <img src={urlToImage} alt={title} className="w-full h-48 object-cover bg-gray-400" />
+            <div className="p-4">
+                <Link to={url}>
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-blue-500 transition"></h2>
+                </Link>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                    {description?.length > 100 ? description.slice(0,100)+"...":description}
+                </p>
+                <div className="mt-5 text-sm text-gray-500 dark:text-gray-300">
+                    <span>By {author||"unknown"}</span>
+                    <span>{new Date(publishedAt).toLocaleDateString()}</span>
+                </div>
+                <div className="mt-1 text-xs text-blue-500 font-medium">
+                    Source :{source.name}
+                </div>
             </div>
         </div>
-
     )
 }
 export default NewsCard;

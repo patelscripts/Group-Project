@@ -1,30 +1,40 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
+import { useContext, useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import News from "./pages/News";
+import { ThemeContext } from "./context/ThemeContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+function App() {
+  const [articles, setArticles] = useState([])
+  const { theme } = useContext(ThemeContext);
 
-function AppContent() {
-  const location = useLocation();
-
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme)
+  }, [theme])
   return (
     <div>
-      {/* Header login page ke alawa sab jagah dikhega */}
-      {location.pathname !== "/login" && <Header />}
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
+      <BrowserRouter>
+        <Navbar setArticles={setArticles} />
+        <Routes>
+          <Route path="/" element={<News country="us" category='general' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="/business" element={<News country="us" category='business' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="/entertainment" element={<News country="us" category='entertainment' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="/general" element={<News country="us" category='general' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="/health" element={<News country="us" category='health' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="/science" element={<News country="us" category='science' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="sports" element={<News country="us" category='sports' articles={articles} setArticles={setArticles} />}>
+          </Route>
+           <Route path="/technology" element={<News country="us" category='technology' articles={articles} setArticles={setArticles} />}>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
-
-const App = () => {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
-  );
-};
 
 export default App;

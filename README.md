@@ -1,1 +1,1 @@
-This is my first minor-project in the field of Web-development and AI.
+This is my first minor-project using react and tailwind CSS.
